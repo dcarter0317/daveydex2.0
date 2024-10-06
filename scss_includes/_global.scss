@@ -1,0 +1,55 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  font-family: 'Gayathri', sans-serif;
+  font-size: 1.6em;
+  background: #090909; 
+  color: #fefefe;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: darken($clr-secondary, 5%);
+  padding: 10px 10px 5px 10px;
+  color: $btn-text-color;
+  line-height: 20px;
+  font-variant: small-caps;
+  border-radius: 5px;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
