@@ -1,0 +1,16 @@
+{
+  "name": "daveydex2.0",
+  "version": "1.0.0",
+  "description": "Updated version of daveydex.com website.",
+  "main": "script.js",
+  "scripts": {
+    "sass:build": "sass style.scss style.css --style=compressed --embed-source-map",
+    "sass:watch": "sass --watch style.scss:style.css --embed-source-map"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.93.2"
+  }
+}

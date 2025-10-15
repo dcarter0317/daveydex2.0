@@ -18,63 +18,153 @@ function toggleMenu() {
 const navLinks = document.querySelectorAll('nav ul li a');
 
 navLinks.forEach((navLink) => {
-  navLink.addEventListener('click', () => {
-     navLinks.forEach((navLink) => {
-      navLink.classList.remove('active');
-     })
-     navLink.classList.add('active');
-  })
+  navLink.addEventListener('click', (event) => {
+    navLinks.forEach((link) => link.classList.remove('active'));
+    navLink.classList.add('active');
+
+    const href = navLink.getAttribute('href');
+    if (!href || href === '/' || !href.startsWith('#')) {
+      return;
+    }
+
+    const target = document.querySelector(href);
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+
+    target.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  });
 });
 
 
 // STICKY NAV
 const navBar = document.querySelector('.navbar');
 const navElems = document.querySelector('nav ul');
-const scrollTrigger = document.createElement('div');
 const labelLogos = document.querySelector('.label-logos');
-const mixtapeSection = document.querySelector('.mixtape-section');
-const remixSection = document.querySelector('.remix-section');
-const discographySection = document.querySelector('.discography-section');
-const bodyElem = document.body;
+const stickySentinel = document.createElement('div');
+const stickyPlaceholder = document.createElement('div');
+let currentStackHeight = 0;
 
-scrollTrigger.setAttribute('data-scroll-trigger', '');
-labelLogos.before(scrollTrigger);
+stickySentinel.setAttribute('data-scroll-trigger', '');
+stickySentinel.style.width = '100%';
+stickySentinel.style.height = '1px';
+stickySentinel.style.margin = '0';
+stickySentinel.style.padding = '0';
+stickySentinel.style.opacity = '0';
+stickySentinel.style.pointerEvents = 'none';
 
-navObserver = new IntersectionObserver((entries) => {
-   navBar.classList.toggle('fixed', !entries[0].isIntersecting);
-   navElems.classList.toggle('d-flex', !entries[0].isIntersecting);
-   labelLogos.classList.toggle('fixed', !entries[0].isIntersecting);
-   mixtapeSection.classList.toggle('add-top-spacing', !entries[0].isIntersecting);
-   remixSection.classList.toggle('add-top-spacing', !entries[0].isIntersecting);
-   discographySection.classList.toggle('add-top-spacing', !entries[0].isIntersecting);
+stickyPlaceholder.setAttribute('data-sticky-placeholder', '');
+stickyPlaceholder.style.width = '100%';
+stickyPlaceholder.style.height = '0';
+stickyPlaceholder.style.margin = '0';
+stickyPlaceholder.style.padding = '0';
+stickyPlaceholder.style.display = 'block';
+
+if (labelLogos && labelLogos.parentNode) {
+  labelLogos.parentNode.insertBefore(stickySentinel, labelLogos);
+  labelLogos.parentNode.insertBefore(stickyPlaceholder, labelLogos.nextSibling);
+} else if (navBar && navBar.parentNode) {
+  navBar.parentNode.insertBefore(stickySentinel, navBar.nextSibling);
+  navBar.parentNode.insertBefore(stickyPlaceholder, stickySentinel.nextSibling);
+}
+
+const stickyObserver = new IntersectionObserver(
+  (entries) => {
+    const entry = entries[0];
+    if (!entry) {
+      return;
+    }
+    const isStuck = !entry.isIntersecting;
+    toggleStickyState(isStuck);
+  },
+  { threshold: [0, 1], rootMargin: '0px 0px 0px 0px' }
+);
+
+if (navBar) {
+  calculateStickyStackHeights();
+  stickyObserver.observe(stickySentinel);
+  requestAnimationFrame(() => {
+    const sentinelRect = stickySentinel.getBoundingClientRect();
+    toggleStickyState(sentinelRect.top <= 0);
+  });
+}
+
+let resizeTimerId = null;
+window.addEventListener('resize', () => {
+  if (!navBar) {
+    return;
+  }
+  window.clearTimeout(resizeTimerId);
+  resizeTimerId = window.setTimeout(() => {
+    calculateStickyStackHeights();
+  }, 150);
 });
 
-navObserver.observe(scrollTrigger);
+function toggleStickyState(isStuck) {
+  navBar?.classList.toggle('fixed', isStuck);
+  labelLogos?.classList.toggle('fixed', isStuck);
+  if (navElems) {
+    if (isStuck) {
+      navElems.classList.add('d-flex');
+    } else {
+      navElems.classList.remove('d-flex');
+    }
+  }
 
+  if (stickyPlaceholder) {
+    stickyPlaceholder.style.height = isStuck ? `${currentStackHeight}px` : '0px';
+  }
+}
 
-// CLICK ACTIVE TAB
-const tabs = document.querySelectorAll('.tab');
-tabs.forEach((tab) => {
-   tab.addEventListener("click", function(e) {
-    document.querySelector('.active').classList.remove('active');
-     this.classList.add('active');
-   });
-});
+function calculateStickyStackHeights() {
+  if (!navBar) {
+    return;
+  }
+
+  const navbarHeight = measureElementHeight(navBar, 'fixed');
+  const logosHeight = labelLogos ? measureElementHeight(labelLogos, 'fixed') : 0;
+  currentStackHeight = navbarHeight + logosHeight;
+
+  document.documentElement.style.setProperty('--navbar-fixed-height', `${navbarHeight}px`);
+  document.documentElement.style.setProperty('--sticky-stack-height', `${currentStackHeight}px`);
+  document.documentElement.style.setProperty('--sticky-anchor-offset', `${currentStackHeight}px`);
+  if (stickyPlaceholder) {
+    const isStuck = navBar?.classList.contains('fixed');
+    stickyPlaceholder.style.height = isStuck ? `${currentStackHeight}px` : '0px';
+  }
+}
+
+function measureElementHeight(element, modifierClass) {
+  const clone = element.cloneNode(true);
+  if (modifierClass) {
+    clone.classList.add(modifierClass);
+  }
+  clone.style.position = 'absolute';
+  clone.style.visibility = 'hidden';
+  clone.style.pointerEvents = 'none';
+  clone.style.top = '-9999px';
+  clone.style.left = '0';
+  clone.style.width = `${element.getBoundingClientRect().width}px`;
+  clone.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(clone);
+  const height = Math.round(clone.getBoundingClientRect().height);
+  document.body.removeChild(clone);
+  return height;
+}
+
+window.addEventListener('load', calculateStickyStackHeights);
 
 
 // MIXTAPE COMPONENT
 const mixtape = document.querySelector("#mixtape");
-const playBtn = document.querySelector("#playBtn");
-const downloadBtn = document.querySelector("#downloadBtn");
-const mixtapePlaylistContainer = document.querySelector(".mixtape__playlist-container");
-const accordion = document.querySelector(".tape-accordion");
-const accordionTitles = document.querySelectorAll(".accordion__title");
-const accordionLinks = document.querySelectorAll(".accordion__links a");
-let tapeGenre = document.querySelector(".mixtape__genre");
-let tapeCover = document.querySelector(".mixtape__cover");
-let tapeTitle = document.querySelector(".mixtape__title");
-let playLink = "";
-let downloadLink = "";
+const accordionContainer = document.querySelector("#mixtapeAccordion");
+let currentMixtapeIndex = 0;
 
 //FUNCTIONS
 
@@ -96,12 +186,17 @@ const mixtapeToHTML = (mixtape) => `
           </ol>
         </div>
         <div class="mixtape__btns">
-          <a href="${
-            mixtape.playlink
-          }" class="btn" id="playBtn" target="blank"><i class="fas fa-play"></i>play</a>
+          <button class="btn mixtape__btn mixtape__btn--play" type="button" data-playlink="${mixtape.playlink}">
+            <i class="fas fa-play" aria-hidden="true" title="Play mixtape"></i>
+          </button>
           <a href="${
             mixtape.downloadlink
-          }" class="btn" id="downloadBtn"><i class="fas fa-download"></i>download</a>
+          }" class="btn mixtape__btn mixtape__btn--download">
+            <i class="fas fa-download" aria-hidden="true" title="Download mixtape"></i>
+          </a>
+      </div>
+      <div class="mixtape__player is-hidden" data-mixtape-player>
+        <audio class="mixtape__audio" controls preload="none" data-src="${mixtape.playlink}"></audio>
       </div>
   </div>  
 `;
@@ -139,41 +234,199 @@ async function fetchAllMixtapeData() {
 }
 
 fetchAllMixtapeData().then(() => {
-  mixtape.innerHTML = mixtapeToHTML(allMixtapeData.mixtapes[0]);
+  if (!allMixtapeData || !Array.isArray(allMixtapeData.mixtapes)) {
+    return;
+  }
+  buildTapeAccordion(allMixtapeData.mixtapes);
+  renderMixtapeByIndex(currentMixtapeIndex);
 });
 
-accordionLinks.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    mixtape.innerHTML = mixtapeToHTML(allMixtapeData.mixtapes[link.dataset.id]);
-  });
-});
-
-// ACCORDION
-accordion.addEventListener("click", chooseActiveTab);
-
-function chooseActiveTab(e) {
- const activeTab =  e.target.closest('.tab');
- if(!activeTab) return // used so clicking between accordionTitles doesnt trigger an event.
- toggleAccordion(activeTab);
- console.log(activeTab);
+function renderMixtapeByIndex(index) {
+  if (!mixtape || !allMixtapeData || !Array.isArray(allMixtapeData.mixtapes)) {
+    return;
+  }
+  const selectedMixtape = allMixtapeData.mixtapes[index];
+  if (!selectedMixtape) {
+    return;
+  }
+  currentMixtapeIndex = index;
+  mixtape.innerHTML = mixtapeToHTML(selectedMixtape);
+  initializeMixtapePlayer();
+  highlightActiveCover();
 }
 
-// function toggleAccordion(tabToActive) {
-//    const tabs = tabToActive.parentElement.querySelectorAll('.tab');
+function initializeMixtapePlayer() {
+  const playButton = mixtape.querySelector(".mixtape__btn--play");
+  const audioElement = mixtape.querySelector(".mixtape__audio");
+  const playerContainer = mixtape.querySelector("[data-mixtape-player]");
+  if (!playButton || !audioElement) {
+    return;
+  }
+  const playIcon = playButton.querySelector("i");
+      const dataSrc = audioElement.getAttribute("data-src");
+  if (dataSrc && audioElement.src !== dataSrc) {
+    audioElement.src = dataSrc;
+  }
+  if (playerContainer) {
+    playerContainer.classList.add("is-hidden");
+  }
+  const revealPlayer = () => {
+    if (playerContainer) {
+      playerContainer.classList.remove("is-hidden");
+    }
+  };
+  const updateButtonState = (isPlaying) => {
+    if (!playIcon) {
+      return;
+    }
+    playButton.classList.toggle("is-playing", isPlaying);
+    playIcon.classList.toggle("fa-play", !isPlaying);
+    playIcon.classList.toggle("fa-pause", isPlaying);
+  };
+  playButton.addEventListener("click", () => {
+    revealPlayer();
+    if (audioElement.paused) {
+      audioElement.play().catch(() => {});
+    } else {
+      audioElement.pause();
+    }
+  });
+  audioElement.addEventListener("play", () => {
+    revealPlayer();
+    updateButtonState(true);
+  });
+  audioElement.addEventListener("pause", () => updateButtonState(false));
+  audioElement.addEventListener("ended", () => {
+    audioElement.currentTime = 0;
+    updateButtonState(false);
+  });
+}
 
-//     tabs.forEach((tab) => {
-//       tab.classList.remove('active');
-//     })
-//   //  tabs.forEach((tab) => {
-//   //     if(tab.classList.contains('active')) {
-//   //       tab.classList.remove('active');
-//   //     } else {
-//   //       this.classList.add('active'); 
-//   //     }
-//   //  })
-//   //  tabToActive.querySelector('.tabs').setAttribute('aria-expanded', true);
-//   console.log(tabs); 
-// }
+function buildTapeAccordion(mixtapes = []) {
+  if (!accordionContainer) {
+    return;
+  }
+
+  const genreOrder = [];
+  const mixtapesByGenre = mixtapes.reduce((acc, tape, index) => {
+    const cleanedGenre = (tape.genre || "Misc").trim();
+    if (!acc[cleanedGenre]) {
+      acc[cleanedGenre] = [];
+      genreOrder.push(cleanedGenre);
+    }
+    acc[cleanedGenre].push({ ...tape, index });
+    return acc;
+  }, {});
+
+  const accordionMarkup = genreOrder
+    .map((genre, genreIndex) => {
+      const normalizedId = `genre-${genre.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${genreIndex}`;
+      const isOpen = genreIndex === 0;
+      const coverMarkup = mixtapesByGenre[genre]
+        .map((item) => {
+          const isSelected = item.index === currentMixtapeIndex ? " is-selected" : "";
+          return `
+            <button
+              type="button"
+              class="tape-accordion__cover${isSelected}"
+              data-mixtape-index="${item.index}"
+            >
+              <img src="${item.cover}" alt="${item.title} cover art">
+              <span>${item.title}</span>
+            </button>
+          `;
+        })
+        .join("");
+
+      return `
+        <div class="tape-accordion__item${isOpen ? " is-open" : ""}">
+          <button
+            class="tape-accordion__trigger"
+            type="button"
+            aria-expanded="${isOpen}"
+            aria-controls="${normalizedId}"
+          >
+            <span>${genre}</span>
+            <i class="fa-solid fa-angle-down" aria-hidden="true"></i>
+          </button>
+          <div
+            class="tape-accordion__panel"
+            id="${normalizedId}"
+            role="region"
+            aria-label="${genre} mixtapes"
+            ${isOpen ? "" : "hidden"}
+          >
+            <div class="tape-accordion__grid">
+              ${coverMarkup}
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  accordionContainer.innerHTML = accordionMarkup;
+  highlightActiveCover();
+}
+
+function highlightActiveCover() {
+  if (!accordionContainer) {
+    return;
+  }
+  accordionContainer
+    .querySelectorAll(".tape-accordion__cover")
+    .forEach((button) => {
+      const idx = Number(button.dataset.mixtapeIndex);
+      const isSelected = idx === currentMixtapeIndex;
+      button.classList.toggle("is-selected", isSelected);
+    });
+}
+
+if (accordionContainer) {
+  accordionContainer.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".tape-accordion__trigger");
+    if (trigger) {
+      const item = trigger.closest(".tape-accordion__item");
+      if (!item) {
+        return;
+      }
+      const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+      accordionContainer
+        .querySelectorAll(".tape-accordion__item")
+        .forEach((accordionItem) => {
+          const shouldExpand = accordionItem === item ? !isExpanded : false;
+          setAccordionState(accordionItem, shouldExpand);
+        });
+      return;
+    }
+
+    const coverButton = event.target.closest(".tape-accordion__cover");
+    if (coverButton) {
+      const index = Number(coverButton.dataset.mixtapeIndex);
+      if (!Number.isNaN(index)) {
+        renderMixtapeByIndex(index);
+      }
+    }
+  });
+}
+
+function setAccordionState(item, expand) {
+  const trigger = item.querySelector(".tape-accordion__trigger");
+  const panel = item.querySelector(".tape-accordion__panel");
+
+  if (!trigger || !panel) {
+    return;
+  }
+
+  trigger.setAttribute("aria-expanded", expand ? "true" : "false");
+  item.classList.toggle("is-open", expand);
+
+  if (expand) {
+    panel.removeAttribute("hidden");
+  } else {
+    panel.setAttribute("hidden", "");
+  }
+}
 
 
 // MUSIC PLAYER
@@ -181,6 +434,7 @@ const player = document.querySelector("#player");
 const playerCover = document.querySelector("#playerCover");
 const playerTitle = document.querySelector("#playerTitle");
 const playerArtist = document.querySelector("#playerArtist");
+const playerInfo = document.querySelector(".player__info");
 
 const audio = document.querySelector("#audio");
 const progressContainer = document.querySelector(".progress-container");
@@ -196,34 +450,43 @@ const musicDataURL = "data/music.json";
 
 let songIndex = 0;
 
-loadSong(musicLinks[songIndex]);
-
-function loadSong() {
-  musicLinks.forEach(function (musicLink) {
-    musicLink.addEventListener("click", function (e) {
-      e.preventDefault();
-      const songLink = this.getAttribute("data-songLink");
-      const songTitle = this.outerText;
-      const songCover = this.getAttribute("data-coverart");
-
-      const songArtist = this.getAttribute("data-artist");
-      const playerInfo = document.querySelector(".player__info");
-
-      playerInfo.classList.add("active");
-      playerCover.setAttribute("src", songCover);
-      playerTitle.innerHTML = songTitle;
-      playerArtist.innerHTML = songArtist;
-      audio.src = songLink;
-    });
-  });
+if (musicLinks.length) {
+  loadSong(musicLinks[songIndex]);
 }
+
+function loadSong(linkElement, { autoPlay = false } = {}) {
+  if (!linkElement) {
+    return;
+  }
+  const songLink = linkElement.getAttribute("data-songLink");
+  const songTitle = linkElement.textContent;
+  const songCover = linkElement.getAttribute("data-coverart");
+  const songArtist = linkElement.getAttribute("data-artist");
+  playerInfo.classList.add("active");
+  playerCover.setAttribute("src", songCover);
+  playerTitle.textContent = songTitle;
+  playerArtist.textContent = songArtist;
+  audio.src = songLink;
+  if (autoPlay) {
+    playSong();
+  } else {
+    pauseSong();
+  }
+}
+
+musicLinks.forEach((musicLink, index) => {
+  musicLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    songIndex = index;
+    loadSong(musicLink, { autoPlay: true });
+  });
+});
 
 
 function playSong() {
   player.classList.add("play");
   btnPlay.querySelector("i.fas").classList.remove("fa-play");
   btnPlay.querySelector("i.fas").classList.add("fa-pause");
-
   audio.play();
 }
 
@@ -231,35 +494,35 @@ function pauseSong() {
   player.classList.remove("play");
   btnPlay.querySelector("i.fas").classList.remove("fa-pause");
   btnPlay.querySelector("i.fas").classList.add("fa-play");
-
   audio.pause();
 }
 
 function prevSong() {
+  if (!musicLinks.length) {
+    return;
+  }
   songIndex--;
-
   if (songIndex < 0) {
     songIndex = musicLinks.length - 1;
   }
-  loadSong(musicLinks[songIndex]);
-  playSong();
+  loadSong(musicLinks[songIndex], { autoPlay: true });
 }
 
 function nextSong() {
+  if (!musicLinks.length) {
+    return;
+  }
   songIndex++;
-
   if (songIndex > musicLinks.length - 1) {
     songIndex = 0;
   }
-  loadSong(musicLinks[songIndex]);
-  playSong();
+  loadSong(musicLinks[songIndex], { autoPlay: true });
 }
 
 function updateProgress(e) {
   const { currentTime, duration } = e.srcElement;
   const progressPercentage = (currentTime / duration) * 100;
   let timeDisplay = audio.timeupdate;
-
   progress.style.width = `${progressPercentage}%`;
 }
 
@@ -267,13 +530,11 @@ function setProgress(e) {
   const width = this.clientWidth;
   const clickX = e.offsetX;
   const duration = audio.duration;
-
   audio.currentTime = (clickX / width) * duration;
 }
 
 btnPlay.addEventListener("click", () => {
   const isPlaying = player.classList.contains("play");
-
   if (isPlaying) {
     pauseSong();
   } else {
@@ -296,6 +557,3 @@ function updateCopyright() {
   copyrightDate.innerText = yearToDate;
 }
 updateCopyright();
-
-
-
