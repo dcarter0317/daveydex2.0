@@ -322,13 +322,13 @@ nav .nav__link:hover, nav .nav__link.active {
     text-align: center;
   }
 }
-
 @media (min-width: 787px) {
   .music-container {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     grid-template-areas: "title title" "player playlists";
-    column-gap: 2rem;
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
     row-gap: 2rem;
   }
   .music-container > .section__title {

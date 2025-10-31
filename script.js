@@ -166,6 +166,43 @@ const mixtape = document.querySelector("#mixtape");
 const accordionContainer = document.querySelector("#mixtapeAccordion");
 let currentMixtapeIndex = 0;
 
+const managedAudioElements = new Set();
+const managedAudioOptions = new Map();
+
+function registerManagedAudio(audioElement, options = {}) {
+  if (!audioElement || managedAudioElements.has(audioElement)) {
+    return;
+  }
+
+  managedAudioElements.add(audioElement);
+  managedAudioOptions.set(audioElement, options);
+
+  audioElement.addEventListener("play", () => {
+    for (const otherAudio of managedAudioElements) {
+      if (otherAudio === audioElement) {
+        continue;
+      }
+
+      if (!otherAudio.isConnected) {
+        managedAudioElements.delete(otherAudio);
+        managedAudioOptions.delete(otherAudio);
+        continue;
+      }
+
+      if (otherAudio.paused) {
+        continue;
+      }
+
+      const { onManagedPause } = managedAudioOptions.get(otherAudio) || {};
+      if (typeof onManagedPause === "function") {
+        onManagedPause();
+      } else {
+        otherAudio.pause();
+      }
+    }
+  });
+}
+
 //FUNCTIONS
 
 const mixtapeToHTML = (mixtape) => `
@@ -267,6 +304,7 @@ function initializeMixtapePlayer() {
   if (dataSrc && audioElement.src !== dataSrc) {
     audioElement.src = dataSrc;
   }
+  registerManagedAudio(audioElement);
   if (playerContainer) {
     playerContainer.classList.add("is-hidden");
   }
@@ -449,6 +487,10 @@ const musicData = document.querySelector('#musicData');
 const musicDataURL = "data/music.json";
 
 let songIndex = 0;
+
+if (audio) {
+  registerManagedAudio(audio, { onManagedPause: () => pauseSong() });
+}
 
 if (musicLinks.length) {
   loadSong(musicLinks[songIndex]);
