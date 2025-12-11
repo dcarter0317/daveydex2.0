@@ -555,16 +555,6 @@ nav .nav__link:hover, nav .nav__link.active {
 .card__description {
   margin-bottom: 20px;
 }
-.music-container {
-  margin: 100px 0;
-  padding: 30px;
-}
-@media (max-width: 650px) {
-  .music-container .sections {
-    grid-template-columns: 1fr;
-  }
-}
-
 .mixtape-container {
   display: grid;
   grid-template-columns: 8% 1fr 1fr;

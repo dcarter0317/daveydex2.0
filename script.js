@@ -504,10 +504,12 @@ function loadSong(linkElement, { autoPlay = false } = {}) {
   const songTitle = linkElement.textContent;
   const songCover = linkElement.getAttribute("data-coverart");
   const songArtist = linkElement.getAttribute("data-artist");
+  const songDownloadLink = linkElement.getAttribute("data-downloadLink");
   playerInfo.classList.add("active");
   playerCover.setAttribute("src", songCover);
   playerTitle.textContent = songTitle;
   playerArtist.textContent = songArtist;
+  // playerDownloadLink.getAttribute("url", songDownloadLink);  TODO: FIX DL LINK
   audio.src = songLink;
   if (autoPlay) {
     playSong();
