@@ -58,5 +58,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: ./dist/
-          server-dir: ./
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}/
           state-name: .ftp-deploy-sync-state-v5.json
