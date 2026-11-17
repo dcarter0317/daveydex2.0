@@ -39,3 +39,6 @@ music/
 # End of https://www.toptal.com/developers/gitignore/api/macos
 # Design source files
 *.sketch
+
+# Dependencies
+node_modules/
