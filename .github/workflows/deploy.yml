@@ -1,0 +1,62 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: hostinger
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run sass:build
+
+      # music/ is gitignored and lives only on the server, so it is never
+      # part of the deploy payload.
+      - name: Assemble site
+        run: |
+          mkdir dist
+          cp index.html script.js style.css dist/
+          cp -R data imgs dist/
+          find dist -name .DS_Store -delete
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: hostinger
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+
+      - name: Upload to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./
+          state-name: .ftp-deploy-sync-state-v5.json
