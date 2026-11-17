@@ -1,190 +1,220 @@
 {
     "remixes": [
         {
-          "title": "Ballin (DaveDex Remix)",
+          "title": "Ballin'(Dave Dex Remix)",
           "artist": "Kehlani",
           "cover": "imgs/music/ballin.jpg",
-          "track": "music/remixes/Ballin'(DaveDex Remix) - Kehlani.mp3"
+          "track": "music/remixes/Ballin_Dave_Dex_Remix_Kehlani.mp3"
         },
         {
-          "title": "Barbie World (DaveDex Remix)",
+          "title": "Barbie World(Dave Dex Remix)",
           "artist": "Nicki Minaj and Ice Spice",
           "cover": "imgs/music/barbie_world.png",
-          "track": "music/remixes/Barbie World (DaveDex Remix) - Nicki Minaj and Ice Spice.mp3"
+          "track": "music/remixes/Barbie_World_Dave_Dex_Remix_Nicki_Minaj_and_Ice_Spice.mp3"
         },
         {
-          "title": "Beautiful People(DaveDex Remix)",
+          "title": "Beautiful People(Dave Dex Remix)",
           "artist": "Mary J Blige",
           "cover": "imgs/music/beautiful_people.jpg",
-          "track": "music/remixes/Beautiful People(DaveDex Remix)  - Mary J Blige.mp3"
+          "track": "music/remixes/Beautiful_People_Dave_Dex_Remix_Mary_J_Blige.mp3"
         },
         {
-          "title": "Boy's A Liar (DaveDex Amapiano Remix)",
+          "title": "Boy's A Liar(Dave Dex Amapiano Remix)",
           "artist": "Pink Pantheress ft Ice Spice",
           "cover": "imgs/music/boys_a_liar.jpeg",
-          "track": "music/remixes/Boy's A Liar (DaveDex Amapiano Remix) - Pink Pantheress ft Ice Spice.mp3"
+          "track": "music/remixes/Boys_A_Liar_Dave_Dex_Amapiano_Remix_Pink_Pantheress_ft_Ice_Spice.mp3"
         },
         {
-          "title": "Breathe (Dave Dex Remix)",
-          "artist": "Ronan C",
+          "title": "Breathe(Dave Dex Remix)",
+          "artist": "Ronan_C",
           "cover": "imgs/music/breathe.jpg",
-          "track": "music/remixes/Breathe (Dave Dex Remix) - Ronan C.mp3"
+          "track": "music/remixes/Breathe_Dave_Dex_Remix_Ronan_C.mp3"
         },
         {
-          "title": "Con La Brisa (DaveDex Remix)",
+          "title": "Con La Brisa(Dave Dex Remix)",
           "artist": "Foudeqush & Ludwig Goransson",
           "cover": "imgs/music/con_la_brisa.png",
-          "track": "music/remixes/Foudeqush & Ludwig Goransson.mp3"
+          "track": "music/remixes/Con_La_Brisa_Dave_Dex_Remix_Foudeqush_Ludwig_Goransson.mp3"
         },
         {
-          "title": "Deli (DaveDex Remix)",
+          "title": "Deli(Dave Dex Remix)",
           "artist": "Ice Spice",
           "cover": "imgs/music/deli.png",
-          "track": "music/remixes/Deli (DaveDex Remix)(Clean) - Ice Spice.mp3"
+          "track": "music/remixes/Deli_Dave_Dex_Remix_Clean_Ice_Spice.mp3"
         },
         {
-          "title": "F'd Up (DaveDex Remix)",
+          "title": "F'd Up(Dave Dex Remix)",
           "artist": "Laya",
           "cover": "imgs/music/fd_up.jpg",
-          "track": "music/remixes/F'd Up (DaveDex Remix) - Laya.mp3"
+          "track": "music/remixes/F_d_Up_Dave_Dex_Remix_Laya.mp3"
         },
         {
-          "title": "Flip A Switch(DaveDex Remix)",
+          "title": "Flip A Switch(Dave Dex Remix)",
           "artist": "RAYE ft Coi Leray",
           "cover": "imgs/music/flip_a_switch.jpeg",
-          "track": "music/remixes/Flip A Switch(DaveDex Remix) - RAYE ft Coi Leray.mp3"
+          "track": "music/remixes/Flip_A_Switch_Dave_Dex_Remix_RAYE_ft_Coi_Leray.mp3"
         },
         {
           "title": "Folded(Dave Dex Remix)",
           "artist": "Kehlani",
           "cover": "imgs/music/folded.png",
-          "track": "music/remixes/Folded(Dave Dex Remix) - Kehlani.mp3"
+          "track": "music/remixes/Folded_Dave_Dex_Remix_Kehlani.mp3"
         },
         {
-          "title": "Freak(DaveDex Remix)",
+          "title": "Freak(Dave Dex Remix)",
           "artist": "Matti Da Don",
           "cover": "imgs/music/freak.png",
-          "track": "music/remixes/Freak(DaveDex Remix) - Matti Da Don.mp3"
+          "track": "music/remixes/Freak_DaveDex_Remix_Matti_Da_Don.mp3"
         },
         {
-          "title": "Free Mind(DaveDex Remix)",
-          "artist": "Free Mind(DaveDex Remix) - Tems.mp3",
+          "title": "Free Mind(Dave Dex Remix)",
+          "artist": "Tems",
           "cover": "imgs/music/free_mind.jpg",
-          "track": "music/remixes/Free Mind(DaveDex Remix) - Tems.mp3"
+          "track": "music/remixes/Free_Mind_Dave_Dex_Remix_Tems.mp3"
         },
         {
           "title": "Girls (DaveDex Remix) - Omarion.mp3",
-          "artist": "Omarion.mp3",
+          "artist": "Omarion",
           "cover": "imgs/music/girls.jpeg",
-          "track": "music/remixes/Girls (DaveDex Remix) - Omarion.mp3"
+          "track": "music/remixes/Girls_Dave_Dex_Remix_Omarion.mp3"
         },
         {
-          "title": "I Need(Davey Dex Remix) - Josvani.mp3",
+          "title": "I Need(Dave Dex Remix) - Josvani.mp3",
           "artist": "Josvani",
           "cover": "imgs/music/i_need.png",
-          "track": "music/remixes/I Need(Davey Dex Remix) - Josvani.mp3"
+          "track": "music/remixes/I_Need_Davey_Dex_Remix_Josvani.mp3"
         },
         {
           "title": "Imaginary Playerz(Dave Dex Remix)(Clean)",
           "artist": "Cardi B",
           "cover": "imgs/music/imaginary_playaz.png",
-          "track": "music/remixes/Imaginary Playerz(Dave Dex Remix)(Clean) - Cardi B.mp3"
+          "track": "music/remixes/Imaginary_Playerz_Dave_Dex_Remix_Clean_Cardi_B.mp3"
+        },
+        {
+          "title": "I'm Still(Dave Dex Remix)",
+          "artist": "Hillary",
+          "cover": "imgs/music/im_still.png",
+          "track": "music/remixes/Im_Still_Dave_Dex_Remix_Hillari.mp3"s
         },
         {
           "title": "It Depends(DaveDex Remix)(Clean)",
-          "artist": "Chris Brown feat. Bryson Tiller",
+          "artist": "Chris Brown ft. Bryson Tiller",
           "cover": "imgs/music/it_depends.jpg",
-          "track": "music/remixes/It Depends(DaveDex Remix)(Clean) - Chris Brown feat. Bryson Tiller.mp3"
+          "track": "music/remixes/It_Depends_DaveDex_Remix_Clean_Chris_Brown_Bryson_Tiller.mp3"
         },
         {
           "title": "Jump(DaveDex Remix)",
           "artist": "Tyla",
           "cover": "imgs/music/jump.png",
-          "track": "music/remixes/Jump(DaveDex Remix)(Clean) - Tyla.mp3"
+          "track": "music/remixes/Jump_DaveDex_Remix_Clean_Tyla.mp3"
         },
         {
           "title": "Lavender Haze(DaveDex Hard House Remix)(Clean) - Taylor Swift",
           "artist": "Taylor Swift",
           "cover": "imgs/music/lavender_haze.jpg",
-          "track": "music/remixes/Lavender Haze(DaveDex Hard House Remix)(Clean) - Taylor Swift.mp3"
+          "track": "music/remixes/Lavender_Haze_DaveDex_Hard_House_Remix_Clean_Taylor_Swift.mp3"
         },
         {
           "title": "Let Me Love You(Dave Dex Remix Instr) - Amber Mark",
           "artist": "Amber Mark",
           "cover": "imgs/music/let_me_love_you.png",
-          "track": "music/remixes/Let Me Love You(Dave Dex Remix) - Amber Mark.mp3"
+          "track": "music/remixes/Let_Me_Love_You_Dave_Dex_Remix_Amber_Mark.mp3"
         },
         {
           "title": "Music Is The Cure(Dave Dex Remix) - Cee Elassaad & Lee Wilson",
           "artist": "Cee Elassaad & Lee Wilson",
           "cover": "imgs/music/music_is_the_cure.jpg",
-          "track": "music/remixes/Music Is The Cure(Dave Dex Remix) - Cee Elassaad & Lee Wilson.mp3"
+          "track": "music/remixes/Music_Is_The_Cure_Dave_Dex_Remix_Cee_Elassaad_Lee_Wilson.mp3"
         },
         {
           "title": "Mutt(Dave Dex Remix)",
           "artist": "Leon Thomas ft. Chris Brown",
           "cover": "imgs/music/mutt.png",
-          "track": "music/remixes/Mutt(Dave Dex Remix) - Leon Thomas.mp3"
+          "track": "music/remixes/Mutt_Dave_Dex_Remix_Leon_Thomas.mp3"
         },
         {
           "title": "Nokia(Dave Dex Remix)",
           "artist": "Drake",
           "cover": "imgs/music/nokia.png",
-          "track": "music/remixes/Nokia(Dave Dex Remix) - Drake.mp3"
+          "track": "music/remixes/Nokia_Dave_Dex_Remix_Drake.mp3"
         },
         {
           "title": "Players(DaveDex DOA Remix)(Clean) - Coi Leray.mp3",
           "artist": "Coi Leray",
           "cover": "imgs/music/players.png",
-          "track": "music/remixes/Players(DaveDex DOA Remix)(Clean) - Coi Leray.mp3"
+          "track": "music/remixes/Players_DaveDex_DOA_Remix_Clean_Coi_Leray.mp3"
         },
         {
           "title": "Princess Diana (DaveDex Hard House Remix)(Clean).mp3",
           "artist": "Ice Spice and Nicki Minaj",
           "cover": "imgs/music/princess_diana.jpeg",
-          "track": "music/remixes/Princess Diana (DaveDex Hard House Remix)(Clean).mp3"
+          "track": "music/remixes/Princess_Diana_Dave_Dex_Hard_House_Remix_Clean.mp3"
         },
         {
           "title": "Red Ruby Da Sleeze(DaveDex Remix)(Clean) - Nicki Minaj.mp3",
           "artist": "Nicki Minaj",
           "cover": "imgs/music/red_ruby_da_sleeze.png",
-          "track": "music/remixes/Red Ruby Da Sleeze(DaveDex Remix)(Clean) - Nicki Minaj.mp3"
+          "track": "music/remixes/Red_Ruby_Da_Sleeze_Dave_Dex_Remix_Clean_Nicki_Minaj.mp3"
         },
         {
           "title": "Same Mistake(DaveDex Remix) - Destin Conrad ft Alex Isley.mp3",
           "artist": "Destin Conrad ft Alex Isley",
           "cover": "imgs/music/same_mistake.jpg",
-          "track": "music/remixes/Same Mistake(DaveDex Remix) - Destin Conrad ft Alex Isley.mp3"
+          "track": "music/remixes/Same_Mistake_Dave_Dex_Remix_Destin_Conrad_ft_Alex_Isley.mp3"
         },
         {
           "title": "Search & Rescue(DaveDex HardHouse Remix).mp3",
           "artist": "Drake",
           "cover": "imgs/music/search_rescue.jpg",
-          "track": "music/remixes/Search & Rescue(DaveDex HardHouse Remix).mp3"
+          "track": "music/remixes/Search_Rescue_Dave_Dex_HardHouse_Remix.mp3"
         },
         {
           "title": "Shirt(DaveDex Hard House Remix)(Clean) - Sza.mp3",
           "artist": "Sza",
           "cover": "imgs/music/shirt.png",
-          "track": "music/remixes/Shirt(DaveDex Hard House Remix)(Clean) - Sza.mp3"
+          "track": "music/remixes/Shirt_DaveDex_Hard_House_Remix_Clean_Sza.mp3"
         },
         {
           "title": "SoSick(DaveDex Remix) - Josvani.mp3",
-          "artist": "Josvani.mp3",
+          "artist": "Josvani",
           "cover": "imgs/music/so_sick.png",
-          "track": "music/remixes/SoSick(DaveDex Remix) - Josvani.mp3"
+          "track": "music/remixes/SoSick_DaveDex_Remix_Josvani.mp3"
         },
         {
           "title": "Take A Dose (DaveDex Remix) - Kenny Lattimore.mp3",
           "artist": "Kenny Lattimore",
           "cover": "imgs/music/take_a_dose.png",
-          "track": "music/remixes/Take A Dose (DaveDex Remix) - Kenny Lattimore.mp3"
+          "track": "music/remixes/Take_A_Dose_Dave_Dex_Remix_Kenny_Lattimore.mp3"
         },
         {
           "title": "Thique(DaveDex Hard House Remix) - Beyonce.mp3",
           "artist": "Beyonce",
           "cover": "imgs/music/thiques.png",
-          "track": "music/remixes/Thique(DaveDex Hard House Remix) - Beyonce.mp3"
+          "track": "music/remixes/Thique_Dave_Dex_Hard_House_Remix_Beyonce.mp3"
+        },
+        {
+          "title": "Touchin(Dave Dex Remix) - Honey Bxby",
+          "artist": "Honey Bxby",
+          "cover": "imgs/music/touchin.png",
+          "track": "music/remixes/Touchin_Dave_Dex_Remix_Honey_Bxby.mp3"
+        },
+        {
+          "title": "Unfortunate(DaveDex Remix) - Tems",
+          "artist": "Tems",
+          "cover": "imgs/music/unfortunate.jpg",
+          "track": "music/remixes/Unfortunate_Dave_Dex_Remix_Tems.mp3"
+        },
+        {
+          "title": "WildSide(Dave Dex Remix Clean) - Normani ft Cardi_B",
+          "artist": "Normani ft Cardi_B",
+          "cover": "imgs/music/wildside.jpg",
+          "track": "music/remixes/WildSide_Dave_Dex_Remix_Clean_Normani_Cardi_B.mp3"
+        },
+        {
+          "title": "WY@(DaveDex Remix) - Brent Faiyaz",
+          "artist": "Brent Faiyaz",
+          "cover": "imgs/music/wy.jpg",
+          "track": "music/remixes/WY_Dave_Dex_Remix_Brent_Faiyaz.mp3"
         }
       ]
 }
